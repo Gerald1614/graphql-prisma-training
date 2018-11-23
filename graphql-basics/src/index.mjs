@@ -10,7 +10,7 @@ const users = [{
   email: 'gerald@eef.com'
 },
 {
-  id: '128214214',  
+  id: '12erger14214',  
   name: 'sarah',
   age: 23,
   email: 'gdvdfv@eef.com'
@@ -26,19 +26,22 @@ const posts = [{
   id: '4214',  
   title: 'vivre a montreal',
   body: 'ergwergyveqr regfqervreq',
-  published: false
+  published: false,
+  author: '128214214'
 },
 {
   id: 'ewfvfbvewev4214',  
   title: 'mourir a montreal',
   body: 'ergwergveqr regfqersdvsadv vreq',
-  published: true
+  published: true,
+  author: '128214214'
 },
 {
   id: 'ewfv11evv4214',  
   title: 'asta la vista',
   body: 'ergwergvfbvwfwevdbvwfe eqr regfqervreq',
-  published: false
+  published: false,
+  author: '12erger14214'
 }]
 
 // Construct a schema, using GraphQL schema language
@@ -90,16 +93,10 @@ var root = {
       age: 47,
       email: 'gerald@eef.com'
     } 
-  },
-  post() {
-    return {
-      id: 'ewfvwev4214',  
-      title: 'vivre a montreal',
-      body: 'ergwergveqr regfqervreq',
-      published: false
-    } 
   }
-};
+}
+
+
 
 var app = express();
 app.use('/graphql', graphqlHTTP({
