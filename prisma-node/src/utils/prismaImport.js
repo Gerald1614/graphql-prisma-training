@@ -1,0 +1,1 @@
+module.exports = require('../../prisma/generated/prisma-client').prisma;

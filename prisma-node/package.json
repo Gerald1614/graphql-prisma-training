@@ -1,8 +1,9 @@
 {
-  "name": "graphql-basics",
+  "name": "prisma-node",
   "version": "1.0.0",
   "description": "",
-  "main": "index.mjs",
+  "main": "index",
+  "module": "index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --experimental-modules ./src/index.mjs"
@@ -10,9 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apollo-server": "^2.2.2",
+    "apollo-server-express": "^2.2.2",
     "express": "^4.16.4",
-    "express-graphql": "^0.7.1",
-    "graphql": "^14.0.2"
+    "graphql": "^14.0.2",
+    "uuid": "^3.3.2",
+    "prisma-client-lib": "^1.21.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.6"
