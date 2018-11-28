@@ -466,6 +466,7 @@ type User {
   id: ID!
   name: String!
   email: String!
+  password: String!
   posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
 }
@@ -479,6 +480,7 @@ type UserConnection {
 input UserCreateInput {
   name: String!
   email: String!
+  password: String!
   posts: PostCreateManyWithoutAuthorInput
   comments: CommentCreateManyWithoutAuthorInput
 }
@@ -496,12 +498,14 @@ input UserCreateOneWithoutPostsInput {
 input UserCreateWithoutCommentsInput {
   name: String!
   email: String!
+  password: String!
   posts: PostCreateManyWithoutAuthorInput
 }
 
 input UserCreateWithoutPostsInput {
   name: String!
   email: String!
+  password: String!
   comments: CommentCreateManyWithoutAuthorInput
 }
 
@@ -517,6 +521,8 @@ enum UserOrderByInput {
   name_DESC
   email_ASC
   email_DESC
+  password_ASC
+  password_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -527,6 +533,7 @@ type UserPreviousValues {
   id: ID!
   name: String!
   email: String!
+  password: String!
 }
 
 type UserSubscriptionPayload {
@@ -550,6 +557,7 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   name: String
   email: String
+  password: String
   posts: PostUpdateManyWithoutAuthorInput
   comments: CommentUpdateManyWithoutAuthorInput
 }
@@ -557,6 +565,7 @@ input UserUpdateInput {
 input UserUpdateManyMutationInput {
   name: String
   email: String
+  password: String
 }
 
 input UserUpdateOneRequiredWithoutCommentsInput {
@@ -576,12 +585,14 @@ input UserUpdateOneRequiredWithoutPostsInput {
 input UserUpdateWithoutCommentsDataInput {
   name: String
   email: String
+  password: String
   posts: PostUpdateManyWithoutAuthorInput
 }
 
 input UserUpdateWithoutPostsDataInput {
   name: String
   email: String
+  password: String
   comments: CommentUpdateManyWithoutAuthorInput
 }
 
@@ -638,6 +649,20 @@ input UserWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
   posts_every: PostWhereInput
   posts_some: PostWhereInput
   posts_none: PostWhereInput

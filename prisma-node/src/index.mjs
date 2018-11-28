@@ -27,11 +27,11 @@ const server = new ApolloServer({
     Post,
     Comment
   },
-  context: {
+  context: req => ({
+    prisma,
     db,
-    pubsub,
-    prisma
-  }
+    pubsub
+  })
 });
 
 server.applyMiddleware({ app, path: '/graphql' });

@@ -216,6 +216,8 @@ export type UserOrderByInput =
   | "name_DESC"
   | "email_ASC"
   | "email_DESC"
+  | "password_ASC"
+  | "password_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -354,17 +356,20 @@ export interface UserCreateOneWithoutPostsInput {
 export interface UserUpdateManyMutationInput {
   name?: String;
   email?: String;
+  password?: String;
 }
 
 export interface UserCreateWithoutPostsInput {
   name: String;
   email: String;
+  password: String;
   comments?: CommentCreateManyWithoutAuthorInput;
 }
 
 export interface UserCreateInput {
   name: String;
   email: String;
+  password: String;
   posts?: PostCreateManyWithoutAuthorInput;
   comments?: CommentCreateManyWithoutAuthorInput;
 }
@@ -416,6 +421,7 @@ export interface UserUpsertWithoutPostsInput {
 export interface UserUpdateWithoutCommentsDataInput {
   name?: String;
   email?: String;
+  password?: String;
   posts?: PostUpdateManyWithoutAuthorInput;
 }
 
@@ -467,6 +473,20 @@ export interface UserWhereInput {
   email_not_starts_with?: String;
   email_ends_with?: String;
   email_not_ends_with?: String;
+  password?: String;
+  password_not?: String;
+  password_in?: String[] | String;
+  password_not_in?: String[] | String;
+  password_lt?: String;
+  password_lte?: String;
+  password_gt?: String;
+  password_gte?: String;
+  password_contains?: String;
+  password_not_contains?: String;
+  password_starts_with?: String;
+  password_not_starts_with?: String;
+  password_ends_with?: String;
+  password_not_ends_with?: String;
   posts_every?: PostWhereInput;
   posts_some?: PostWhereInput;
   posts_none?: PostWhereInput;
@@ -492,6 +512,7 @@ export interface PostUpdateWithWhereUniqueWithoutAuthorInput {
 export interface UserCreateWithoutCommentsInput {
   name: String;
   email: String;
+  password: String;
   posts?: PostCreateManyWithoutAuthorInput;
 }
 
@@ -541,6 +562,7 @@ export interface CommentUpdateWithWhereUniqueWithoutPostInput {
 export interface UserUpdateInput {
   name?: String;
   email?: String;
+  password?: String;
   posts?: PostUpdateManyWithoutAuthorInput;
   comments?: CommentUpdateManyWithoutAuthorInput;
 }
@@ -599,6 +621,7 @@ export interface CommentSubscriptionWhereInput {
 export interface UserUpdateWithoutPostsDataInput {
   name?: String;
   email?: String;
+  password?: String;
   comments?: CommentUpdateManyWithoutAuthorInput;
 }
 
@@ -688,6 +711,7 @@ export interface UserPreviousValues {
   id: ID_Output;
   name: String;
   email: String;
+  password: String;
 }
 
 export interface UserPreviousValuesPromise
@@ -696,6 +720,7 @@ export interface UserPreviousValuesPromise
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   email: () => Promise<String>;
+  password: () => Promise<String>;
 }
 
 export interface UserPreviousValuesSubscription
@@ -704,6 +729,7 @@ export interface UserPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
 }
 
 export interface AggregateComment {
@@ -856,12 +882,14 @@ export interface User {
   id: ID_Output;
   name: String;
   email: String;
+  password: String;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
   name: () => Promise<String>;
   email: () => Promise<String>;
+  password: () => Promise<String>;
   posts: <T = FragmentableArray<Post>>(
     args?: {
       where?: PostWhereInput;
@@ -892,6 +920,7 @@ export interface UserSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   name: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
   posts: <T = Promise<AsyncIterator<PostSubscription>>>(
     args?: {
       where?: PostWhereInput;
