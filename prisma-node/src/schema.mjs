@@ -2,9 +2,10 @@ export const typeDefs = `
 type Query {
   users(query: String): [User!]!
   posts(query: String): [Post!]!
+  myPosts(query: String): [Post!]!
   me: User!
   comments:[Comment!]!
-  post: Post!
+  post(id: ID!): Post!
 }
 
 type Mutation {

@@ -138,7 +138,7 @@ export const Mutation = {
       })
 
       if (!commentExists) {
-        throw new Error('Unable to delete comment')
+        throw new Error('Unable to update comment')
       }
       return prisma.updateComment({
         where: { id: args.id },

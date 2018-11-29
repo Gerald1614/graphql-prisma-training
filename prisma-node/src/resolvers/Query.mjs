@@ -1,3 +1,5 @@
+import getUserId from "../utils/getUserId.mjs";
+
 export const Query = {
   
   users(parents, args, { prisma }, info) {
@@ -15,15 +17,36 @@ export const Query = {
     return prisma.users(opArgs, info).$fragment(fragment)
   },
   posts(parents, args, { prisma }, info) {
-    const opArgs = {}
+    const opArgs = {
+      where: {
+        published: true
+      }
+    }
     if(args.query) {
-      opArgs.where = {
-        OR: [{
+      opArgs.where.OR = [{
           title_contains: args.query
         }, {
           body_contains: args.query
         }]
+    }
+    const fragment = `fragment UsertoPost on Post { id title body published author { id name email } comments {id text} }`
+    return prisma.posts(opArgs, info).$fragment(fragment)
+  },
+  myPosts(parents, args, { prisma, req }, info) {
+    const userId = getUserId(req)
+    const opArgs = {
+      where: {
+        author: {
+          id: userId
+        }
       }
+    }
+    if(args.query) {
+      opArgs.where.OR = [{
+          title_contains: args.query
+        }, {
+          body_contains: args.query
+        }]
     }
     const fragment = `fragment UsertoPost on Post { id title body published author { id name email } comments {id text} }`
     return prisma.posts(opArgs, info).$fragment(fragment)
@@ -32,11 +55,30 @@ export const Query = {
     const fragment = `fragment CommentToPost on Comment { id text post {id title body published} author { id name email } }`
     return prisma.comments(null, info).$fragment(fragment)
   },
-  me() {
-    return {
-      id: '128214214',  
-      name: 'Toto',
-      email: 'gerald@eef.com'
-    } 
+   me(parent, args, { prisma, req }, info) {
+    const userId = getUserId(req)
+    return prisma.user({
+        id: userId
+    })
+  },
+  async post(parent, args,{ prisma, req }, info) {
+    const userId = getUserId(req, false)
+    const fragment = `fragment UsertoPost on Post { id title body published author { id name email } comments {id text} }`
+    const posts = await prisma.posts({
+      where: {
+        id: args.id,
+        OR: [{
+          published: true
+        }, {
+          author: {
+            id: userId
+          }
+        }]
+      }
+    }, info).$fragment(fragment)
+    if(posts.length === 0) {
+      throw new Error('Post not found')
+    }
+    return posts[0]
   }
 }
