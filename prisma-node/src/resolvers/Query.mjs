@@ -3,7 +3,11 @@ import getUserId from "../utils/getUserId.mjs";
 export const Query = {
   
   users(parents, args, { prisma }, info) {
-    const opArgs = {}
+    const opArgs = {
+      first: args.first,
+      skip: args.skip,
+      after: args.after
+    }
     if(args.query) {
       opArgs.where = {
         OR: [{
@@ -15,6 +19,9 @@ export const Query = {
   },
   posts(parents, args, { prisma }, info) {
     const opArgs = {
+      first: args.first,
+      skip: args.skip,
+      after: args.after,
       where: {
         published: true
       }
@@ -32,6 +39,9 @@ export const Query = {
   myPosts(parents, args, { prisma, req }, info) {
     const userId = getUserId(req)
     const opArgs = {
+      first: args.first,
+      skip: args.skip,
+      after: args.after,
       where: {
         author: {
           id: userId
@@ -49,8 +59,14 @@ export const Query = {
     return prisma.posts(opArgs, info).$fragment(fragment)
   },
   comments(parents, args, { prisma }, info) {
+    const opArgs = {
+      first: args.first,
+      skip: args.skip,
+      after: args.after
+    }
+
     const fragment = `fragment CommentToPost on Comment { id text post {id title body published} author { id name email } }`
-    return prisma.comments(null, info).$fragment(fragment)
+    return prisma.comments(opArgs, info).$fragment(fragment)
   },
    me(parent, args, { prisma, req }, info) {
     const userId = getUserId(req)

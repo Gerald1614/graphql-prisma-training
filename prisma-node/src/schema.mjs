@@ -1,10 +1,10 @@
 export const typeDefs = `
 type Query {
-  users(query: String): [User!]!
-  posts(query: String): [Post!]!
-  myPosts(query: String): [Post!]!
+  users(query: String, first: Int, skip: Int, after: String): [User!]!
+  posts(query: String, first: Int, skip: Int, after: String): [Post!]!
+  myPosts(query: String, first: Int, skip: Int, after: String): [Post!]!
   me: User!
-  comments:[Comment!]!
+  comments(first: Int, skip: Int, after: String):[Comment!]!
   post(id: ID!): Post!
 }
 
@@ -44,6 +44,7 @@ input CreateUserInput {
 input UpdateUserInput {
   name: String
   email: String
+  password:String
 }
 
 input CreatePostInput {
