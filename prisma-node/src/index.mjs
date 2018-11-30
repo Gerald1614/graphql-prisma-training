@@ -4,12 +4,7 @@ import ApolloServer from './utils/ASE.js'
 import PubSub from './utils/AS.js'
 import { typeDefs } from './schema'
 import db from './db.mjs'
-import { Query } from './resolvers/Query'
-import { Mutation } from './resolvers/Mutation'
-import { Subscription } from './resolvers/Subscription.mjs'
-import { User } from './resolvers/User'
-import { Post } from './resolvers/Post'
-import { Comment } from './resolvers/Comment'
+import {resolvers} from './resolvers/index'
 import prisma  from './utils/prismaImport'
 
 
@@ -19,14 +14,7 @@ const app = express();
 const pubsub = new PubSub()
 const server = new ApolloServer({
   typeDefs,
-  resolvers: {
-    Query,
-    Mutation,
-    Subscription,
-    User,
-    Post,
-    Comment
-  },
+  resolvers,
   context: ({req}) => {
     return {
       prisma,

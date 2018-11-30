@@ -8,13 +8,10 @@ export const Query = {
       opArgs.where = {
         OR: [{
           name_contains: args.query
-        }, {
-          email_contains: args.query
         }]
       }
     }
-    const fragment = `fragment PostToUSer on User { id name email posts { id title body published } comments {id text} }`
-    return prisma.users(opArgs, info).$fragment(fragment)
+    return prisma.users(opArgs, info)
   },
   posts(parents, args, { prisma }, info) {
     const opArgs = {
